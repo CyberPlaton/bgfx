@@ -1108,7 +1108,7 @@ namespace bgfx
 		return word;
 	}
 
-	bool compileShader(const char* _varying, const char* _comment, char* _shader, uint32_t _shaderLen, const Options& _options, bx::WriterI* _shaderWriter, bx::WriterI* _messageWriter)
+	bool compileShader(const char* _varying, const char* _comment, char* _shader, uint32_t _shaderLen, bool _shaderOwning, const Options& _options, bx::WriterI* _shaderWriter, bx::WriterI* _messageWriter)
 	{
 		bx::ErrorAssert messageErr;
 
@@ -1444,7 +1444,11 @@ namespace bgfx
 				// first preprocess pass is used to strip all comments before
 				// substituting code.
 				bool ok = preprocessor.run(data);
-				delete [] data;
+
+				if (_shaderOwning)
+				{
+					delete[] data;
+				}
 
 				if (!ok)
 				{
@@ -2638,7 +2642,10 @@ namespace bgfx
 			}
 		}
 
-		delete [] data;
+		if (_shaderOwning)
+		{
+			delete[] data;
+		}
 
 		return compiled;
 	}
@@ -2900,6 +2907,7 @@ namespace bgfx
 						, commandLineComment.c_str()
 						, data
 						, size
+						, true
 						, options
 						, consoleOut ? bx::getStdOut() : writer
 						, bx::getStdOut()

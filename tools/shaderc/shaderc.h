@@ -120,7 +120,7 @@ namespace bgfx
 	bool compileMetalShader(const Options& _options, uint32_t _version, const std::string& _code, bx::WriterI* _writer, bx::WriterI* _messages);
 	bool compilePSSLShader(const Options& _options, uint32_t _version, const std::string& _code, bx::WriterI* _writer, bx::WriterI* _messages);
 	bool compileSPIRVShader(const Options& _options, uint32_t _version, const std::string& _code, bx::WriterI* _writer, bx::WriterI* _messages);
-	bool compileShader(const char* _varying, const char* _comment, char* _shader, uint32_t _shaderLen, const Options& _options,
+	bool compileShader(const char* _varying, const char* _comment, char* _shader, uint32_t _shaderLen, bool _shaderOwning, const Options& _options,
 		bx::WriterI* _shaderWriter, bx::WriterI* _messageWriter);
 	const char* getPsslPreamble();
 
