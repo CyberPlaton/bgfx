@@ -24,6 +24,7 @@ namespace bgfx
 #include <unordered_map>
 
 #include <bx/bx.h>
+#include <bx/platform.h>
 #include <bx/debug.h>
 #include <bx/commandline.h>
 #include <bx/endian.h>
@@ -39,19 +40,16 @@ namespace bgfx
 
 	bx::StringView nextWord(bx::StringView& _parse);
 
-	constexpr uint8_t kUniformFragmentBit  = 0x10;
-	constexpr uint8_t kUniformSamplerBit   = 0x20;
-	constexpr uint8_t kUniformReadOnlyBit  = 0x40;
-	constexpr uint8_t kUniformCompareBit   = 0x80;
-	constexpr uint8_t kUniformMask = 0
-		| kUniformFragmentBit
-		| kUniformSamplerBit
-		| kUniformReadOnlyBit
-		| kUniformCompareBit
+	static constexpr uint8_t cUniformFragmentBit = 0x10;
+	static constexpr uint8_t cUniformSamplerBit = 0x20;
+	static constexpr uint8_t cUniformReadOnlyBit = 0x40;
+	static constexpr uint8_t cUniformCompareBit = 0x80;
+	static constexpr uint8_t cUniformMask = 0
+		| cUniformFragmentBit
+		| cUniformSamplerBit
+		| cUniformReadOnlyBit
+		| cUniformCompareBit
 		;
-
-	const char* getUniformTypeName(UniformType::Enum _enum);
-	UniformType::Enum nameToUniformTypeEnum(const char* _name);
 
 	struct Uniform
 	{
@@ -124,7 +122,8 @@ namespace bgfx
 	bool compileMetalShader(const Options& _options, uint32_t _version, const std::string& _code, bx::WriterI* _writer, bx::WriterI* _messages);
 	bool compilePSSLShader(const Options& _options, uint32_t _version, const std::string& _code, bx::WriterI* _writer, bx::WriterI* _messages);
 	bool compileSPIRVShader(const Options& _options, uint32_t _version, const std::string& _code, bx::WriterI* _writer, bx::WriterI* _messages);
-
+	bool compileShader(const char* _varying, const char* _comment, char* _shader, uint32_t _shaderLen, const Options& _options,
+		bx::WriterI* _shaderWriter, bx::WriterI* _messageWriter);
 	const char* getPsslPreamble();
 
 } // namespace bgfx

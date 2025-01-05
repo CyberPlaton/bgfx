@@ -23,3 +23,4 @@
 #include "shader_spirv.cpp"
 #include "topology.cpp"
 #include "vertexlayout.cpp"
+#include "../tools/shaderc/shaderc.cpp"

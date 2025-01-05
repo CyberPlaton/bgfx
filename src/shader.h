@@ -6,6 +6,8 @@
 #ifndef BGFX_SHADER_H
 #define BGFX_SHADER_H
 
+#include <string>
+#include <vector>
 #include <bx/readerwriter.h>
 
 namespace bgfx
