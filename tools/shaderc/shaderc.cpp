@@ -1429,7 +1429,7 @@ namespace bgfx
 		uint32_t inputHash = 0;
 		uint32_t outputHash = 0;
 		bx::ErrorAssert err;
-
+		std::string code;
 		char* data;
 		char* input;
 		{
@@ -1671,8 +1671,6 @@ namespace bgfx
 					}
 
 					{
-						std::string code;
-
 						bx::write(_shaderWriter, BGFX_CHUNK_MAGIC_CSH, &err);
 						bx::write(_shaderWriter, uint32_t(0), &err);
 						bx::write(_shaderWriter, outputHash, &err);
@@ -2190,6 +2188,8 @@ namespace bgfx
 					}
 				}
 
+				std::string code;
+
 				if (preprocessor.run(input) )
 				{
 					if (_options.preprocessOnly)
@@ -2205,8 +2205,6 @@ namespace bgfx
 					}
 
 					{
-						std::string code;
-
 						if ('f' == _options.shaderType)
 						{
 							bx::write(_shaderWriter, BGFX_CHUNK_MAGIC_FSH, &err);
@@ -2603,7 +2601,7 @@ namespace bgfx
 						}
 						else
 						{
-							code += _comment;
+							code += _comment ? _comment : "";
 							code += preprocessor.m_preprocessed;
 
 							if (profile->lang == ShadingLang::Metal)
@@ -2637,6 +2635,7 @@ namespace bgfx
 								bx::close(&writer);
 							}
 						}
+						return true;
 					}
 				}
 			}
@@ -2902,7 +2901,7 @@ namespace bgfx
 					}
 				}
 
-				compiled = compileShader(
+				const auto compiled = compileShader(
 						  varying
 						, commandLineComment.c_str()
 						, data
