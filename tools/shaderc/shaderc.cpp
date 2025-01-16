@@ -1503,15 +1503,25 @@ namespace bgfx
 				if (bx::findIdentifierMatch(it->c_str(), s_allowedVertexShaderInputs).isEmpty() )
 				{
 					invalidShaderAttribute = true;
-					bx::write(_messageWriter, &messageErr,
-						  "Invalid vertex shader input attribute '%s'.\n"
-						  "\n"
-						  "Valid input attributes:\n"
-						  "  a_position, a_normal, a_tangent, a_bitangent, a_color0, a_color1, a_color2, a_color3, a_indices, a_weight,\n"
-						  "  a_texcoord0, a_texcoord1, a_texcoord2, a_texcoord3, a_texcoord4, a_texcoord5, a_texcoord6, a_texcoord7,\n"
-						  "  i_data0, i_data1, i_data2, i_data3, i_data4.\n"
-						  "\n"
-						, it->c_str() );
+
+					std::string input(it->c_str());
+
+					char* output = new char[1024];
+
+					bx::snprintf(output, 1024,
+						"Invalid vertex shader input attribute '%s'.\n"
+						"\n"
+						"Valid input attributes:\n"
+						"  a_position, a_normal, a_tangent, a_bitangent, a_color0, a_color1, a_color2, a_color3, a_indices, a_weight,\n"
+						"  a_texcoord0, a_texcoord1, a_texcoord2, a_texcoord3, a_texcoord4, a_texcoord5, a_texcoord6, a_texcoord7,\n"
+						"  i_data0, i_data1, i_data2, i_data3, i_data4.\n"
+						"\n"
+						, input.data());
+
+					std::string out_text(output);
+
+					_messageWriter->write(out_text.data(), out_text.size(), messageErr);
+
 					break;
 				}
 			}
