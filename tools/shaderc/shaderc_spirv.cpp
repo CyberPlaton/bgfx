@@ -37,6 +37,11 @@ namespace stl = tinystl;
 #include "../../src/shader_spirv.h"
 #include "../../3rdparty/khronos/vulkan-local/vulkan.h"
 
+#pragma comment(lib, "glslang")
+#pragma comment(lib, "glsl-optimizer")
+#pragma comment(lib, "spirv-opt")
+#pragma comment(lib, "spirv-cross")
+
 namespace bgfx { namespace spirv
 {
 	const TBuiltInResource resourceLimits =
