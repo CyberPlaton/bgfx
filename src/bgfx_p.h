@@ -95,7 +95,7 @@ namespace bgfx
 #define _BGFX_ASSERT(_condition, _format, ...)                                                                 \
 	BX_MACRO_BLOCK_BEGIN                                                                                       \
 		if (!BX_IGNORE_C4127(_condition)                                                                       \
-		&&  bx::assertFunction(bx::Location::current(), "ASSERT " #_condition " -> " _format, ##__VA_ARGS__) ) \
+		&&  bx::assertFunction(bx::Location::current(), 0,"ASSERT " #_condition " -> " _format, ##__VA_ARGS__) ) \
 		{                                                                                                      \
 			bgfx::fatal(__FILE__, uint16_t(__LINE__), bgfx::Fatal::DebugCheck, _format, ##__VA_ARGS__);        \
 		}                                                                                                      \
@@ -4975,7 +4975,7 @@ namespace bgfx
 			BGFX_CHECK_HANDLE("getUniformInfo", m_uniformHandle, _handle);
 
 			UniformRef& uniform = m_uniformRef[_handle.idx];
-			bx::strCopy(_info.name, sizeof(_info.name), uniform.m_name.getPtr() );
+			bx::strCopy(_info.name, sizeof(_info.name), uniform.m_name );
 			_info.type = uniform.m_type;
 			_info.num  = uniform.m_num;
 		}

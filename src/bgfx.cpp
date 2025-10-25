@@ -1808,12 +1808,12 @@ namespace bgfx
 
 	const char* getName(UniformHandle _handle)
 	{
-		return s_ctx->m_uniformRef[_handle.idx].m_name.getPtr();
+		return s_ctx->m_uniformRef[_handle.idx].m_name.getCPtr();
 	}
 
 	const char* getName(ShaderHandle _handle)
 	{
-		return s_ctx->m_shaderRef[_handle.idx].m_name.getPtr();
+		return s_ctx->m_shaderRef[_handle.idx].m_name.getCPtr();
 	}
 
 	static const char* s_topologyName[] =
@@ -2165,7 +2165,7 @@ namespace bgfx
 				BX_TRACE("\t%3d: %4d %s"                                              \
 					, ii                                                              \
 					, idx                                                             \
-					, ref.m_name.getPtr()                                             \
+					, ref.m_name                                                      \
 					);                                                                \
 			}                                                                         \
 		}                                                                             \
@@ -2187,7 +2187,7 @@ namespace bgfx
 				BX_TRACE("\t%3d: %4d %s (count %d)"                                   \
 					, ii                                                              \
 					, idx                                                             \
-					, ref.m_name.getPtr()                                             \
+					, ref.m_name                                                      \
 					, ref.m_refCount                                                  \
 					);                                                                \
 			}                                                                         \
